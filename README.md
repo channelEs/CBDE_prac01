@@ -25,3 +25,20 @@ Then you can connect to the databse
 ```
 python3 connect.py
 ```
+
+### connect via command line
+enter database
+```
+psql -h *localhost* -d *databasename* -U *user*
+```
+
+list tables
+```
+\dt
+\d <table-name>
+```
+
+export tables
+```
+\copy (*SELECT_QUERY*) to 'export.csv' with csv header
+```
