@@ -1,0 +1,15 @@
+Connected to the PostgreSQL server.
+bookcorpus data readed: 1000
+Data loaded into Postgres
+
+Statistics for Storing Text:
+Min: 0.003856 s
+Max: 0.060572 s
+Avg: 0.005993 s
+Std: 0.002136 s
+
+Statistics for Storing Embeddings:
+Min: 0.024581 s
+Max: 0.292801 s
+Avg: 0.042485 s
+Std: 0.016989 s

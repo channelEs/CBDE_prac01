@@ -1,7 +1,22 @@
-
+from config import load_config
+from connect import postgres_conn as postG
+from sentence_transformers import SentenceTransformer
+import numpy as np
+import time
 
 # main
 if __name__ == '__main__':
+    config = load_config()
+    connection = postG()
+    connection.post_connect(config)
+
+    connection.execute_query(
+        "SELECT id_sentence, embedding FROM text_embeddings"
+    )
+    embedding_store = connection.cursor_fetch() 
+
+    print(f'data readed: {len(embedding_store)}')
+
     # Example: Performing similarity search for 10 sentences
     sample_sentences = [
         "It was raining heavily outside.",
@@ -16,60 +31,54 @@ if __name__ == '__main__':
         "They shared a laugh over coffee."
     ]
 
-    # Perform similarity search and measure time
+    model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+
+    similar_embbedings = []
+    time_to_store_top2 = []
+
+    # compute the top-2 most similar sentences
     for sample_sentence in sample_sentences:
-        # Generate embedding for the sample sentence using SentenceTransformer
+        start_time = time.time()
         sample_embedding = model.encode(sample_sentence).tolist()
 
-        # Query the collection for top-2 most similar sentences
-        results = collection.query(
-            query_embeddings=[sample_embedding],
-            n_results=2,
-            include=["embeddings", "documents", "metadatas"]  # Ensure embeddings and documents are included in the results
-        )
+        similarity_scores = []
 
-        # Retrieve embeddings and manually compute distances
-        if "embeddings" in results and "documents" in results:
-            result_docs = results["documents"][0]
-            result_embeddings = results["embeddings"][0]
-        else:
-            print(f"No embeddings found for: {sample_sentence}")
-            continue
+        for sentence_id, stored_embedding in embedding_store:
+            stored_embedding_np = np.array(stored_embedding)
+            similarity = np.dot(sample_embedding, stored_embedding_np) / (np.linalg.norm(sample_embedding) * np.linalg.norm(stored_embedding_np))
+            similarity_scores.append((sentence_id, similarity))
 
-        # Display results
-        print(f"\nSentence: {sample_sentence}")
+        similarity_scores = sorted(similarity_scores, key=lambda x: x[1])
+        similar_embbedings.append((similarity_scores[:2]))
+        end_time = time.time()
 
-        print("Top-2 Cosine Similarity Results:")
-        for i, result in enumerate(result_docs):
-            cosine_sim = 1 - cosine(sample_embedding, result_embeddings[i])
-            print(f"Document: {result}, Cosine Similarity: {cosine_sim:.4f}")
+        time_to_store_top2.append(end_time - start_time)        
 
-        print("Top-2 Euclidean Distance Results:")
-        for i, result in enumerate(result_docs):
-            euclidean_dist = euclidean(sample_embedding, result_embeddings[i])
-            print(f"Document: {result}, Euclidean Distance: {euclidean_dist:.4f}")
+    count = 0
+    for similar_embbeding in similar_embbedings:
+        similar_sentence = []
+        for id_sentence, similarity_value in similar_embbeding:
+            connection.execute_query(
+            f'SELECT sentence FROM bookcorpus WHERE id = {id_sentence}'
+            )
+            sentence = connection.cursor_fetch()
+            similar_sentence.append(sentence)
+        print(f'for sentence: {sample_sentences[count]}:')
+        print(f'similarity: {similar_sentence[0]} and {similar_sentence[1]}')
+        print()
+        count = count + 1
 
-    # Calculate statistics for storing text
-    min_time_store_text = np.min(time_to_store_text)
-    max_time_store_text = np.max(time_to_store_text)
-    avg_time_store_text = np.mean(time_to_store_text)
-    std_time_store_text = np.std(time_to_store_text)
+    connection.close_connection()
 
-    # Calculate statistics for storing embeddings
-    min_time_store_embeddings = np.min(time_to_store_embeddings)
-    max_time_store_embeddings = np.max(time_to_store_embeddings)
-    avg_time_store_embeddings = np.mean(time_to_store_embeddings)
-    std_time_store_embeddings = np.std(time_to_store_embeddings)
+    # calculate times
+    min_time_store_text = np.min(time_to_store_top2)
+    max_time_store_text = np.max(time_to_store_top2)
+    avg_time_store_text = np.mean(time_to_store_top2)
+    std_time_store_text = np.std(time_to_store_top2)
 
-    # Print statistics
+    # print times
     print("\nStatistics for Storing Text:")
     print(f"Min: {min_time_store_text:.6f} s")
     print(f"Max: {max_time_store_text:.6f} s")
     print(f"Avg: {avg_time_store_text:.6f} s")
     print(f"Std: {std_time_store_text:.6f} s")
-
-    print("\nStatistics for Storing Embeddings:")
-    print(f"Min: {min_time_store_embeddings:.6f} s")
-    print(f"Max: {max_time_store_embeddings:.6f} s")
-    print(f"Avg: {avg_time_store_embeddings:.6f} s")
-    print(f"Std: {std_time_store_embeddings:.6f} s")

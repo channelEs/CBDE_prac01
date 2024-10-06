@@ -1,0 +1,2 @@
+Connected to the PostgreSQL server.
+Successfully inserted 1000 sentences into the bookcorpus table.

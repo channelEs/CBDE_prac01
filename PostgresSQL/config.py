@@ -1,4 +1,6 @@
 from configparser import ConfigParser
+from connect import postgres_conn as postG
+from datasets import load_dataset
 
 # script to load PostGres DataBase configuration
 def load_config(filename='database.ini', section='postgresql'):
@@ -18,4 +20,14 @@ def load_config(filename='database.ini', section='postgresql'):
 
 if __name__ == '__main__':
     config = load_config()
+    connection = postG()
     print(config)
+    print(connection)
+    connection.post_connect(config)
+
+    dataset = load_dataset("bookcorpus", split="train")
+    print(dataset)
+    print(dataset[4])
+    print(dataset[20])
+
+    connection.close_connection()
