@@ -45,6 +45,7 @@ export tables
 
 ## Chroma
 Only run Chroma scripts with an existing Postgre database, since Chroma fetches data from Postgres "bookcorpus" table!
+Before the execution, make sure that the script has rights to write and read from the same folder, due to Chroma local storage requirements.
 ### Order of operations:
 ```
 py chroma_load_data.py
