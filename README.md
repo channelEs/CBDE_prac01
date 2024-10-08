@@ -43,9 +43,9 @@ export tables
 \copy (*SELECT_QUERY*) to 'export.csv' with csv header
 ```
 
-##Chroma
+## Chroma
 Only run Chroma scripts with an existing Postgre database, since Chroma fetches data from Postgres "bookcorpus" table!
-###Order of operations:
+### Order of operations:
 ```
 py chroma_load_data.py
 ```
