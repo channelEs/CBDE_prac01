@@ -52,7 +52,7 @@ py chroma_load_data.py
 ```
 
 ```
-py croma_load_embeddings.py
+py chroma_load_embeddings.py
 ```
 
 ```
