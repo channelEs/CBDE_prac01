@@ -1,4 +1,3 @@
-# fetch_postgres_and_store_to_chroma.py
 import chromadb
 import time
 import numpy as np
@@ -38,30 +37,61 @@ records = connection.cursor_fetch()  # Fetch results from the cursor
 # Lists to store execution times
 time_to_store_text = []
 
+batch_size = 100
+sentence_batch = []
+id_batch = []
+metadata_batch = []
+
 unique_id = 0
 
-# Insert only the fetched text data into Chroma (no embeddings yet)
+# Process the records in batches of 100
 for record in records:
     sentence_id, text_part = record
-    sentences = text_part.split('. ')  # Assuming simple sentence splitting by period
     
-    for sentence in sentences:
-        # Measure time for storing text only
+   
+    # Add the sentence, ID, and metadata to the respective batches
+    sentence_batch.append(text_part)
+    id_batch.append(str(unique_id))
+    metadata_batch.append({"sentence_id": sentence_id})
+
+    unique_id += 1
+
+    # If the batch reaches the defined size, insert it into Chroma
+    if len(sentence_batch) == batch_size:
+        # Measure time for storing text
         start_time = time.time()
         
-        # Add the sentence to the Chroma collection (without embeddings for now)
+        # Add the batch of sentences to the Chroma collection
         collection.add(
-            ids=[str(unique_id)],  # Unique ID for the sentence
-            documents=[sentence],
-            metadatas=[{"sentence_id": sentence_id}]
+            ids=id_batch,
+            documents=sentence_batch,
+            metadatas=metadata_batch
         )
-        
+            
         end_time = time.time()
         time_to_store_text.append(end_time - start_time)
 
-        unique_id += 1
+        # Clear the batches after insertion
+        sentence_batch = []
+        id_batch = []
+        metadata_batch = []
 
-print(f"Collection size after loading text: {collection.count()}")
+        print("batch " + str(unique_id) + " processed")
+
+# Insert any remaining sentences (less than batch size)
+if sentence_batch:
+    start_time = time.time()
+    
+    collection.add(
+        ids=id_batch,
+        documents=sentence_batch,
+        metadatas=metadata_batch
+    )
+    
+    end_time = time.time()
+    time_to_store_text.append(end_time - start_time)
+
+print(f"Collection size after bulk loading: {collection.count()}")
 
 # Close the database connection
 connection.close_connection()
