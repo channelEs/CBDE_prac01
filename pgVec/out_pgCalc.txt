@@ -1,0 +1,47 @@
+Connected to the PostgreSQL server.
+FOR SENTENCE: It was raining heavily outside.
+ID: 270, Sentence: `` but it did n't matter because he was n't aidan ., Similarity: 0.22663844307179593
+ID: 2709, Sentence: he 's happy to do it . '', Similarity: 0.18933670425445182
+
+FOR SENTENCE: The quick brown fox jumps over the lazy dog.
+ID: 1715, Sentence: i do n't like that person very much , and i do n't ever want to go back there ., Similarity: 0.19662133495553458
+ID: 1707, Sentence: pesh asked ., Similarity: 0.18180606175625247
+
+FOR SENTENCE: She smiled warmly and handed him the book.
+ID: 1740, Sentence: he gave her a rueful smile ., Similarity: 0.171572805328275
+ID: 1761, Sentence: lord , if i was n't a happily married woman , what i would n't want to do to that man ! '', Similarity: 0.1614261163981111
+
+FOR SENTENCE: He walked slowly towards the horizon.
+ID: 1725, Sentence: i would give anything for you to be able to look at me without having to feel bad about yourself . '', Similarity: 0.17441058158874512
+ID: 1768, Sentence: megan snapped her gaze from pesh 's retreating form back to face kristi ., Similarity: 0.15537675651173366
+
+FOR SENTENCE: The sun set behind the mountains.
+ID: 1751, Sentence: with a smile , he then turned and walked away ., Similarity: 0.20941178500652313
+ID: 1365, Sentence: when he started to open his mouth , she shook her head ., Similarity: 0.20525594322348018
+
+FOR SENTENCE: A sudden gust of wind blew through the trees.
+ID: 1902, Sentence: pesh furrowed his brows ., Similarity: 0.1789855467668504
+ID: 162, Sentence: she winked at megan ., Similarity: 0.17627474665641907
+
+FOR SENTENCE: The children played happily in the park.
+ID: 5296, Sentence: with a resigned sigh , he decided to leave things as they were and vowed to check on her tomorrow when she returned to work ., Similarity: 0.13478036911604607
+ID: 5280, Sentence: `` okay , i 'll go see . '', Similarity: 0.12676180164586515
+
+FOR SENTENCE: He opened the door to find an empty room.
+ID: 3171, Sentence: `` i do n't think it will help . '', Similarity: 0.22885442084017482
+ID: 3179, Sentence: mary 's chest jolted off the gurney with the force of the electricity ., Similarity: 0.20708947606494932
+
+FOR SENTENCE: The cat curled up on the windowsill.
+ID: 1740, Sentence: he gave her a rueful smile ., Similarity: 0.1562629546962433
+ID: 1738, Sentence: `` you have nothing to regret ., Similarity: 0.15098114451934763
+
+FOR SENTENCE: They shared a laugh over coffee.
+ID: 1838, Sentence: feeling like it was time to go in for the kill , he asked once again , `` so , will you have dinner with me ? '', Similarity: 0.19700501543313398
+ID: 1843, Sentence: her anxious tone was the only thing that could have torn pesh 's attention away from megan ., Similarity: 0.19040866551347613
+
+
+Statistics for Storing Embeddings:
+Min: 0.019572 s
+Max: 0.224514 s
+Avg: 0.042005 s
+Std: 0.060879 s

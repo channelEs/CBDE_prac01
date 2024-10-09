@@ -14,6 +14,7 @@ if __name__ == '__main__':
         f""" 
         CREATE TABLE IF NOT EXISTS text_embeddings (
             id SERIAL PRIMARY KEY,
+            id_chunk INTEGER NOT NULL,
             id_sentence INTEGER NOT NULL,
             embedding FLOAT8[] NOT NULL
         );
@@ -21,54 +22,37 @@ if __name__ == '__main__':
     )
 
     connection.execute_query(
-        "SELECT id, sentence FROM bookcorpus"
+        "SELECT id, chunk_text FROM bookcorpus"
     )
     records = connection.cursor_fetch() 
 
     print(f'bookcorpus data readed: {len(records)}')
 
     # Lists to store execution times
-    time_to_store_text = []
     time_to_store_embeddings = []
 
     model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
     for record in records:
-        sentence_id, sentence = record
+        chunk_id, chunk = record
         
-        # measure time for embedding generation
-        start_time = time.time()
-        embedding = model.encode(sentence).tolist()  # Generate embedding using SentenceTransformer
-        end_time = time.time()
-        time_to_store_embeddings.append(end_time - start_time)
+        for sentence_id, sentence in enumerate(chunk):
+            # measure time for embedding generation
+            start_time = time.time()
+            embedding = model.encode(sentence).tolist()  # Generate embedding using SentenceTransformer
+            end_time = time.time()
+            time_to_store_embeddings.append(end_time - start_time)
+            
+            # query = "INSERT INTO text_embeddings (id_sentence, embedding) VALUES (%s, %s)"
+            # params = (sentence_id, embedding)
+            # connection.execute_query(query, params)
+            connection.execute_query(
+                    "INSERT INTO text_embeddings (id_chunk, id_sentence, embedding) VALUES (%s, %s, %s)",
+                    (chunk_id, sentence_id, embedding,)
+                )
+            
 
-        # measure time for storing text and embedding
-        start_time = time.time()
-        # query = "INSERT INTO text_embeddings (id_sentence, embedding) VALUES (%s, %s)"
-        # params = (sentence_id, embedding)
-        # connection.execute_query(query, params)
-        connection.execute_query(
-                "INSERT INTO text_embeddings (id_sentence, embedding) VALUES (%s, %s)",
-                (sentence_id, embedding,)
-            )
-        
-        end_time = time.time()
-        time_to_store_text.append(end_time - start_time)
-
-    print("Data loaded into Postgres")
-
-    # Calculate statistics for storing text
-    min_time_store_text = np.min(time_to_store_text)
-    max_time_store_text = np.max(time_to_store_text)
-    avg_time_store_text = np.mean(time_to_store_text)
-    std_time_store_text = np.std(time_to_store_text)
-
-    # Print statistics
-    print("\nStatistics for Storing Text:")
-    print(f"Min: {min_time_store_text:.6f} s")
-    print(f"Max: {max_time_store_text:.6f} s")
-    print(f"Avg: {avg_time_store_text:.6f} s")
-    print(f"Std: {std_time_store_text:.6f} s")
+    print("Embeddings loaded into Postgres")
 
     # Calculate statistics for storing embeddings
     min_time_store_embeddings = np.min(time_to_store_embeddings)

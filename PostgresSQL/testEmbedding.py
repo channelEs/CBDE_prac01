@@ -10,12 +10,11 @@ if __name__ == '__main__':
     connection = postG()
     connection.post_connect(config)
 
-    connection.execute_query(
-        "SELECT id_sentence, embedding FROM text_embeddings"
-    )
-    embedding_store = connection.cursor_fetch() 
-
-    print(f'data readed: {len(embedding_store)}')
+    # connection.execute_query(
+    #     "SELECT id_chunk, id_sentence, embedding FROM text_embeddings"
+    # )
+    # embedding_store = connection.cursor_fetch() 
+    # print(f'data readed: {len(embedding_store)}')
 
     # Example: Performing similarity search for 10 sentences
     sample_sentences = [
@@ -38,15 +37,47 @@ if __name__ == '__main__':
 
     # compute the top-2 most similar sentences
     for sample_sentence in sample_sentences:
-        start_time = time.time()
         sample_embedding = model.encode(sample_sentence).tolist()
-
         similarity_scores = []
+        new_query = (
 
-        for sentence_id, stored_embedding in embedding_store:
+        '''
+            WITH embedding_similarity AS (
+            SELECT
+                id,
+                id_chunk,
+                id_sentence,
+                embedding,
+                    -- Calculate the dot product between your input vector and the database embeddings
+                    (SELECT SUM(a * b) FROM unnest(embedding) WITH ORDINALITY AS emb1(a, i)
+                    JOIN unnest(ARRAY[%s]) WITH ORDINALITY AS emb2(b, j)
+                    ON emb1.i = emb2.j) AS dot_product,
+                    -- Calculate the norm (magnitude) of the database embedding
+                    SQRT(SUM(POW(e, 2))) AS norm_db_embedding,
+                    -- Calculate the norm (magnitude) of the input embedding
+                    SQRT(SUM(POW(x, 2))) AS norm_input_embedding
+                FROM text_embeddings
+                CROSS JOIN LATERAL unnest(embedding) AS e
+                CROSS JOIN LATERAL unnest(ARRAY[%s]) AS x
+                GROUP BY id, id_chunk, id_sentence, embedding
+            )
+            SELECT
+                id,
+                id_chunk,
+                id_sentence,
+                dot_product / (norm_db_embedding * norm_input_embedding) AS cosine_similarity
+            FROM embedding_similarity
+            ORDER BY cosine_similarity DESC
+            LIMIT 2;
+        '''
+        )
+
+
+        start_time = time.time()
+        for chunk_id, sentence_id, stored_embedding in embedding_store:
             stored_embedding_np = np.array(stored_embedding)
             similarity = np.dot(sample_embedding, stored_embedding_np) / (np.linalg.norm(sample_embedding) * np.linalg.norm(stored_embedding_np))
-            similarity_scores.append((sentence_id, similarity))
+            similarity_scores.append((chunk_id, sentence_id, similarity))
 
         similarity_scores = sorted(similarity_scores, key=lambda x: x[1])
         similar_embbedings.append((similarity_scores[:2]))
@@ -54,19 +85,18 @@ if __name__ == '__main__':
 
         time_to_store_top2.append(end_time - start_time)        
 
-    count = 0
-    for similar_embbeding in similar_embbedings:
+    for count, similar_embbeding in enumerate(similar_embbedings):
         similar_sentence = []
-        for id_sentence, similarity_value in similar_embbeding:
+        for chunk_id, id_sentence, similarity_value in similar_embbeding:
             connection.execute_query(
-            f'SELECT sentence FROM bookcorpus WHERE id = {id_sentence}'
+            f'SELECT sentence FROM text_embeddings WHERE id_chunk = {chunk_id} AND id_sentence = {id_sentence}'
             )
             sentence = connection.cursor_fetch()
             similar_sentence.append(sentence)
-        print(f'for sentence: {sample_sentences[count]}:')
-        print(f'similarity: {similar_sentence[0]} and {similar_sentence[1]}')
+        print(f'FOR SENTENCE: {sample_sentences[count]}:')
+        print(f'similarity_01: {similar_sentence[0]}')
+        print(f'similarity_02: {similar_sentence[1]}')
         print()
-        count = count + 1
 
     connection.close_connection()
 

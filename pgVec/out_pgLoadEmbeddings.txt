@@ -1,0 +1,9 @@
+Connected to the PostgreSQL server.
+PGvec bookcorpus data readed: 10000
+Embeddings updated into Postgres with PGVec
+
+Statistics for Storing Embeddings:
+Min: 0.025295 s
+Max: 0.850768 s
+Avg: 0.054855 s
+Std: 0.024638 s

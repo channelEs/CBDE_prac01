@@ -29,7 +29,7 @@ python3 connect.py
 ### connect via command line
 enter database
 ```
-psql -h *localhost* -d *databasename* -U *user*
+psql -d *databasename* -U *user*
 ```
 
 list tables

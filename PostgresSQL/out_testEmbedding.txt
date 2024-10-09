@@ -1,38 +1,7 @@
 Connected to the PostgreSQL server.
-data readed: 1000
-for sentence: It was raining heavily outside.:
-similarity: [('`` no , go ahead .',)] and [('`` considering i have two younger brothers , i think i can handle him .',)]
+data readed: 10000
+Error while executing query: column "sentence" does not exist
+LINE 1: SELECT sentence FROM text_embeddings WHERE id_chunk = 1 AND ...
+               ^
+HINT:  Perhaps you meant to reference the column "text_embeddings.id_sentence".
 
-for sentence: The quick brown fox jumps over the lazy dog.:
-similarity: [("`` you mean , you 've never met dr. mcdreamy bollywood ? ''",)] and [("`` i want you to know what an honor it is for me to be noah 's godfather . ''",)]
-
-for sentence: She smiled warmly and handed him the book.:
-similarity: [("they ca n't help worrying about the neighborhood .",)] and [('twelve years to be exact .',)]
-
-for sentence: He walked slowly towards the horizon.:
-similarity: [('`` we have the namakaran , or naming ceremony .',)] and [('i experience it every time i see a husband and wife sharing a loving moment .',)]
-
-for sentence: The sun set behind the mountains.:
-similarity: [('with her grades already in the toilet , she was unprepared for the emotional breakdown she experienced when carsyn broke up with her .',)] and [("widowers usually fell into two categories-those who were still devastated by their wives ' deaths or those who were ready to have fun and live a little .",)]
-
-for sentence: A sudden gust of wind blew through the trees.:
-similarity: [("it 's just he does n't need to get involved with someone who is n't interested in a long-term relationship . ''",)] and [("`` make yourself useful by changing his diaper . ''",)]
-
-for sentence: The children played happily in the park.:
-similarity: [("i think most women are turned off by what they perceive is a man who ca n't let go of his dead wife . ''",)] and [("you think that i 'm a 'refined ' man who drinks wine , would never think of cussing or have inappropriate thoughts , organizes his underwear drawer , and who considers doing the crossword puzzle a fun friday night ? ''",)]
-
-for sentence: He opened the door to find an empty room.:
-similarity: [("`` besides the fact that it 's nationally recognized for its er ? ''",)] and [('twelve years to be exact .',)]
-
-for sentence: The cat curled up on the windowsill.:
-similarity: [("i 've been there since my residency , so i ca n't imagine working anywhere else .",)] and [('i experience it every time i see a husband and wife sharing a loving moment .',)]
-
-for sentence: They shared a laugh over coffee.:
-similarity: [("i think you 're probably close to ankle 's age . ''",)] and [("i 've been there since my residency , so i ca n't imagine working anywhere else .",)]
-
-
-Statistics for Storing Text:
-Min: 0.108293 s
-Max: 0.119109 s
-Avg: 0.113661 s
-Std: 0.003202 s

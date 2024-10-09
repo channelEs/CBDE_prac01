@@ -1,2 +1,9 @@
 Connected to the PostgreSQL server.
-Successfully inserted 1000 sentences into the bookcorpus table.
+100
+Successfully inserted 10000 sentences into the bookcorpus table.
+
+Statistics for Storing Text:
+Min: 0.003291 s
+Max: 0.015640 s
+Avg: 0.004246 s
+Std: 0.001270 s
