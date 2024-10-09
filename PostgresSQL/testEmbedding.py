@@ -1,6 +1,7 @@
 from config import load_config
 from connect import postgres_conn as postG
 from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import time
 
@@ -39,11 +40,20 @@ if __name__ == '__main__':
     for sample_sentence in sample_sentences:
         sample_embedding = model.encode(sample_sentence).tolist()
         similarity_scores = []
+        sample_emb = np.array(sample_embedding)
 
         start_time = time.time()
         for chunk_id, sentence_id, stored_embedding in embedding_store:
             stored_embedding_np = np.array(stored_embedding)
-            similarity = np.dot(sample_embedding, stored_embedding_np) / (np.linalg.norm(sample_embedding) * np.linalg.norm(stored_embedding_np))
+
+            # cosine
+            # similarity = cosine_similarity([stored_embedding], [sample_embedding])[0][0]
+
+            # euclidean
+            stored_emb = np.array(stored_embedding)
+            similarity = np.linalg.norm(stored_emb - sample_emb)            
+
+            # similarity = np.dot(sample_embedding, stored_embedding_np) / (np.linalg.norm(sample_embedding) * np.linalg.norm(stored_embedding_np))
             similarity_scores.append((chunk_id, sentence_id, similarity))
 
         similarity_scores = sorted(similarity_scores, key=lambda x: x[2])
@@ -60,13 +70,9 @@ if __name__ == '__main__':
             f'SELECT chunk_text FROM bookcorpus WHERE id = {chunk_id}'
             )
             chunk = connection.cursor_fetch()
-            # print(type(chunk))
-            # print(type(chunk[0]))
-            # print(type(chunk[0][0]))
-            # print(len(chunk[0]))
             # print(len(chunk[0][0]))
             similar_sentence.append(chunk[0][0][id_sentence])
-        print(f'FOR SENTENCE: {sample_sentences[count]}:')
+        # print(f'FOR SENTENCE: {sample_sentences[count]}:')
         print(f'similarity_01: {similar_sentence[0]}')
         print(f'similarity_02: {similar_sentence[1]}')
         print()

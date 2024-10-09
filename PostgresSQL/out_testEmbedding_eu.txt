@@ -1,0 +1,58 @@
+Connected to the PostgreSQL server.
+data readed: 10000
+FOR SENTENCE: It was raining heavily outside.: 35, 39, 0.7075541842888757
+FOR SENTENCE: It was raining heavily outside.: 34, 52, 0.7569139234423656
+similarity_01: `` it 's raining outside . ''
+similarity_02: the rain began to fall harder .
+
+FOR SENTENCE: The quick brown fox jumps over the lazy dog.: 98, 58, 1.1351601615864868
+FOR SENTENCE: The quick brown fox jumps over the lazy dog.: 79, 32, 1.1768019181312894
+similarity_01: then ensued a sort of cat and mouse dance .
+similarity_02: with one quick movement , she was out from underneath him in a flash .
+
+FOR SENTENCE: She smiled warmly and handed him the book.: 73, 67, 0.7888792700296806
+FOR SENTENCE: She smiled warmly and handed him the book.: 74, 89, 0.7888792700296806
+similarity_01: she smiled at him .
+similarity_02: she smiled at him .
+
+FOR SENTENCE: He walked slowly towards the horizon.: 57, 36, 0.8846976441108446
+FOR SENTENCE: He walked slowly towards the horizon.: 33, 49, 0.9739091120043087
+similarity_01: when he was finished , he walked slowly over to her .
+similarity_02: although she could n't see his face , his gaze seemed fixed straight ahead into the night sky .
+
+FOR SENTENCE: The sun set behind the mountains.: 49, 34, 1.104717706334393
+FOR SENTENCE: The sun set behind the mountains.: 26, 85, 1.1353064443997165
+similarity_01: in the day , everything is within your sight distance .
+similarity_02: as they walked up , they saw casey sitting outside in the sunshine texting .
+
+FOR SENTENCE: A sudden gust of wind blew through the trees.: 28, 82, 1.0228451153552018
+FOR SENTENCE: A sudden gust of wind blew through the trees.: 33, 86, 1.054614742237282
+similarity_01: a gasp of shock behind him caused him to whirl around .
+similarity_02: the clouds above them opened up , causing a slight drizzle to fall .
+
+FOR SENTENCE: The children played happily in the park.: 26, 27, 1.1791266730490924
+FOR SENTENCE: The children played happily in the park.: 84, 66, 1.1858521331814058
+similarity_01: `` yeah , with two kids under two , let 's see how much fun you 'll have . ''
+similarity_02: `` but babies do n't respond with smiling until later .
+
+FOR SENTENCE: He opened the door to find an empty room.: 16, 57, 0.8254218794687711
+FOR SENTENCE: He opened the door to find an empty room.: 39, 51, 0.880067953819825
+similarity_01: without another word , he opened the door .
+similarity_02: as he nodded , she stepped aside to give him room to come in the door .
+
+FOR SENTENCE: The cat curled up on the windowsill.: 92, 13, 1.07433779652607
+FOR SENTENCE: The cat curled up on the windowsill.: 86, 2, 1.0785468770399989
+similarity_01: i grinned and picked her up and she did her kitten curl into my chest and nuzzled me .
+similarity_02: but now the cat was out of the bag and everyone was in our f**king business .
+
+FOR SENTENCE: They shared a laugh over coffee.: 11, 17, 0.8967954770978657
+FOR SENTENCE: They shared a laugh over coffee.: 75, 66, 0.9099253638701696
+similarity_01: the conversation and laughter flowed as easily as the drinks .
+similarity_02: they all laughed .
+
+
+Statistics for Storing Text:
+Min: 0.764454 s
+Max: 1.096426 s
+Avg: 0.850938 s
+Std: 0.110161 s
