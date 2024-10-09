@@ -41,15 +41,29 @@ if __name__ == '__main__':
         # print(type(random_embedding))
 
         start_time = time.time()
+
+        #  cosine similarity
+        # connection.execute_query(
+        #     """
+        #         SELECT id, sentence, embedding, 1 - (embedding <=> %s::vector) AS similarity
+        #         FROM pgVec_sentences
+        #         ORDER BY embedding <=> %s::vector ASC
+        #         LIMIT 2;
+        #     """,
+        #     (random_embedding, random_embedding,)
+        # )
+
+        # Euclidean distance
         connection.execute_query(
             """
-                SELECT id, sentence, embedding, 1 - (embedding <=> %s::vector) AS similarity
+                SELECT id, sentence, embedding, 1 - (l2_distance(embedding, %s::vector)) AS similarity
                 FROM pgVec_sentences
-                ORDER BY embedding <=> %s::vector ASC
+                ORDER BY l2_distance(embedding, %s::vector) ASC 
                 LIMIT 2;
             """,
             (random_embedding, random_embedding,)
         )
+
         similarity = connection.cursor_fetch() 
         end_time = time.time()
         time_to_store_embedding.append(end_time - start_time)

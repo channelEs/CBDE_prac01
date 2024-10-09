@@ -41,7 +41,7 @@ ID: 1843, Sentence: her anxious tone was the only thing that could have torn pes
 
 
 Statistics for Storing Embeddings:
-Min: 0.019572 s
-Max: 0.224514 s
-Avg: 0.042005 s
-Std: 0.060879 s
+Min: 0.021766 s
+Max: 0.102254 s
+Avg: 0.034475 s
+Std: 0.023269 s

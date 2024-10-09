@@ -1,7 +1,68 @@
 Connected to the PostgreSQL server.
 data readed: 10000
-Error while executing query: column "sentence" does not exist
-LINE 1: SELECT sentence FROM text_embeddings WHERE id_chunk = 1 AND ...
-               ^
-HINT:  Perhaps you meant to reference the column "text_embeddings.id_sentence".
+FOR SENTENCE: It was raining heavily outside.: 90, 81, -0.16079043108548807
+FOR SENTENCE: It was raining heavily outside.: 77, 49, -0.145617271665526
+FOR SENTENCE: It was raining heavily outside.:
+similarity_01: `` is that really necessary ?
+similarity_02: `` no , i think he can stay here with us a little longer .
 
+FOR SENTENCE: The quick brown fox jumps over the lazy dog.: 20, 75, -0.14148519798278067
+FOR SENTENCE: The quick brown fox jumps over the lazy dog.: 2, 52, -0.14064154596371367
+FOR SENTENCE: The quick brown fox jumps over the lazy dog.:
+similarity_01: i do n't think any woman could get angry hearing her husband say how much he loves her and wants to be with her . ''
+similarity_02: `` you mean , you 've never met dr. mcdreamy bollywood ? ''
+
+FOR SENTENCE: She smiled warmly and handed him the book.: 95, 54, -0.14803353427533084
+FOR SENTENCE: She smiled warmly and handed him the book.: 86, 8, -0.1436299383250965
+FOR SENTENCE: She smiled warmly and handed him the book.:
+similarity_01: it makes no sense whatsoever for you to keep that place and pay the exorbitant rent for an empty apartment .
+similarity_02: i 've seen and had my fair share of models over the years , and they no longer appealed .
+
+FOR SENTENCE: He walked slowly towards the horizon.: 20, 26, -0.16631913711675222
+FOR SENTENCE: He walked slowly towards the horizon.: 86, 8, -0.14370073912645676
+FOR SENTENCE: He walked slowly towards the horizon.:
+similarity_01: `` actually , most recent studies still conclude that identical twins can happen to anyone , whereas , fraternal twins are the result of the mother producing two eggs in a single cycle .
+similarity_02: i 've seen and had my fair share of models over the years , and they no longer appealed .
+
+FOR SENTENCE: The sun set behind the mountains.: 52, 60, -0.14308476853698873
+FOR SENTENCE: The sun set behind the mountains.: 98, 42, -0.13060827261102279
+FOR SENTENCE: The sun set behind the mountains.:
+similarity_01: `` but getting in trouble is so much fun , '' megan protested , as she opened her door .
+similarity_02: her manager was not pleased to say the least and started in screaming until i told him to get f**ked .
+
+FOR SENTENCE: A sudden gust of wind blew through the trees.: 58, 18, -0.16585716818701726
+FOR SENTENCE: A sudden gust of wind blew through the trees.: 53, 9, -0.14977753089785295
+FOR SENTENCE: A sudden gust of wind blew through the trees.:
+similarity_01: you do n't impress me as one of those bimbo girls who likes to be used by a man for sex , which i 'm afraid that 's exactly what pesh is doing with you .
+similarity_02: let me speak as freely as i can since you insist on playing dumb .
+
+FOR SENTENCE: The children played happily in the park.: 9, 97, -0.190328606575033
+FOR SENTENCE: The children played happily in the park.: 17, 98, -0.1871136100049374
+FOR SENTENCE: The children played happily in the park.:
+similarity_01: i think most women are turned off by what they perceive is a man who ca n't let go of his dead wife . ''
+similarity_02: the man , who i completely made an ass out of myself in front of , is at the hospital where i 'm doing my clinicals .
+
+FOR SENTENCE: He opened the door to find an empty room.: 22, 51, -0.15554598388129634
+FOR SENTENCE: He opened the door to find an empty room.: 85, 94, -0.13672565861796887
+FOR SENTENCE: He opened the door to find an empty room.:
+similarity_01: it can stem from many issues and have many repercussions . ''
+similarity_02: i have no problem with her performing , but there 's such a thing as going too far .
+
+FOR SENTENCE: The cat curled up on the windowsill.: 53, 9, -0.11339392804560018
+FOR SENTENCE: The cat curled up on the windowsill.: 38, 79, -0.11136961891908337
+FOR SENTENCE: The cat curled up on the windowsill.:
+similarity_01: let me speak as freely as i can since you insist on playing dumb .
+similarity_02: we might be going somewhere that requires more formal wear than jeans . ''
+
+FOR SENTENCE: They shared a laugh over coffee.: 23, 49, -0.14274107220737237
+FOR SENTENCE: They shared a laugh over coffee.: 26, 66, -0.09555572153550967
+FOR SENTENCE: They shared a laugh over coffee.:
+similarity_01: i think the quickest form of treatment , as well as the least invasive , would be to try an injection to narrow the veins and reduce the blood flow to your penis .
+similarity_02: but no , you have to keep believing that you 're too young to get married .
+
+
+Statistics for Storing Text:
+Min: 0.930951 s
+Max: 2.986941 s
+Avg: 1.292719 s
+Std: 0.711194 s
