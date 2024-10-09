@@ -1,4 +1,4 @@
-# fetch_similarity_from_chroma.py
+
 import chromadb
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -19,14 +19,13 @@ client = chromadb.PersistentClient(
 # Access the collection in Chroma
 collection = client.get_collection("bookcorpus")
 
-# Load execution times from the previous file
 
 
 # Lists to store execution times for similarity calculations
 time_to_calculate_cosine = []  # For storing cosine similarity calculation times
 time_to_calculate_euclidean = []  # For storing Euclidean distance calculation times
 
-# Example: Performing similarity search for 10 sentences
+# Performing similarity search for 10 sentences
 sample_sentences = [
     "It was raining heavily outside.",
     "The quick brown fox jumps over the lazy dog.",
